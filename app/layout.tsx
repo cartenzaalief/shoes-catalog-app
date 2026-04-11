@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/public/navbar/Navbar";
 import { getAllCategoriesWithSubcategories } from "@/lib/dal/categories";
+import Footer from "@/components/public/Footer";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default async function RootLayout({
       <body className={geist.className}>
         <Navbar categories={categories} />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
