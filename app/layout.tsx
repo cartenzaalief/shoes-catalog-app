@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/public/navbar/Navbar";
 import { getAllCategoriesWithSubcategories } from "@/lib/dal/categories";
 import Footer from "@/components/public/Footer";
+import WhatsAppFloat from "@/components/public/WhatsappFloat";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default async function RootLayout({
         <Navbar categories={categories} />
         <main>{children}</main>
         <Footer />
+        <WhatsAppFloat />
       </body>
     </html>
   );
