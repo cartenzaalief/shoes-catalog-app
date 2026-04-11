@@ -18,3 +18,12 @@ export async function getSubcategoryBySlug(slug: string, categorySlug: string) {
     },
   });
 }
+
+export async function getAllSubcategoriesWithCategories() {
+  return prisma.subcategory.findMany({
+    include: {
+      category: true,
+    },
+    orderBy: { displayOrder: "asc" },
+  });
+}
