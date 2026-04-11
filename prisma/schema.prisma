@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  slug         String        @unique
+  subcategories Subcategory[]
+  createdAt    DateTime      @default(now())
+}
+
+model Subcategory {
+  id           Int       @id @default(autoincrement())
+  name         String
+  slug         String
+  imageUrl     String?
+  displayOrder Int?
+  categoryId   Int
+  category     Category  @relation(fields: [categoryId], references: [id])
+  products     Product[]
+  createdAt    DateTime  @default(now())
+
+  @@unique([slug, categoryId])
+}
+
+model Product {
+  id             Int            @id @default(autoincrement())
+  name           String
+  slug           String         @unique
+  description    String?
+  subcategoryId  Int
+  subcategory    Subcategory    @relation(fields: [subcategoryId], references: [id])
+  images         ProductImage[]
+  isNewArrival   Boolean        @default(false)
+  newArrivalOrder Int?
+  isActive       Boolean        @default(true)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([subcategoryId])
+}
+
+model ProductImage {
+  id        Int      @id @default(autoincrement())
+  url       String
+  alt       String?
+  position  Int      @default(0)
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CarouselSlide {
+  id              Int      @id @default(autoincrement())
+  title           String?
+  subtitle        String?
+  desktopImageUrl String
+  mobileImageUrl  String?
+  buttonText      String?
+  buttonLink      String?
+  displayOrder    Int      @default(0)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt @default(now())
+
+  @@index([displayOrder])
+}
+
+model Partner {
+  id           Int      @id @default(autoincrement())
+  name         String
+  logoUrl      String
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  @@index([displayOrder])
+}
