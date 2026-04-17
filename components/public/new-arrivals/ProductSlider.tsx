@@ -9,7 +9,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 
-import ProductCard from "./ProductCard";
+import ProductCard from "../../products/ProductCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "../../ui/button";
 import { Product } from "@/types";
