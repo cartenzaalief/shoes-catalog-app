@@ -38,7 +38,7 @@ export default function SearchDropdown({
       {!searching && results.subcategories.length > 0 && (
         <div className="px-6 pt-5 pb-3">
           <p className="text-xs font-bold uppercase tracking-widest mb-3">
-            Categories
+            Kategori
           </p>
           <div className="space-y-1">
             {results.subcategories.map((sub) => (
@@ -51,7 +51,7 @@ export default function SearchDropdown({
                 <Search className="w-3 h-3 text-muted-foreground shrink-0" />
                 <span>{sub.name}</span>
                 <span className="text-muted-foreground text-xs">
-                  in {sub.category.name}
+                  di {sub.category.name}
                 </span>
               </Link>
             ))}
@@ -66,7 +66,7 @@ export default function SearchDropdown({
       {!searching && results.products.length > 0 && (
         <div className="px-6 pt-5 pb-2">
           <p className="text-xs font-bold uppercase tracking-widest mb-4">
-            Products
+            Model
           </p>
           <div className="divide-y divide-border">
             {results.products.map((product) => (
@@ -112,7 +112,7 @@ export default function SearchDropdown({
             onClick={onNavigate}
             className="flex items-center justify-center gap-2 py-4 text-sm font-medium hover:bg-muted/40 transition-colors w-full"
           >
-            Lihat semua {totalProducts} Produk
+            Lihat semua {totalProducts} Model
             <span>→</span>
           </Link>
         </>
