@@ -47,7 +47,7 @@ export default async function ProductListPage({
         </div>
       </div>
 
-      <div className="max-w-480 mx-auto px-4 md:px-16 pt-14">
+      <div className="max-w-480 mx-auto px-4 md:px-16 py-14">
         <div className="flex gap-8">
           {/* Sidebar */}
           <FilterSidebar
