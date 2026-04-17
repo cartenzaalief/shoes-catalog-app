@@ -27,7 +27,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <p className="text-xs text-muted-foreground capitalize">
           {product?.subcategory?.name}
         </p>
-        <h3 className="font-medium text-sm leading-snug mt-0.5 group-hover:underline line-clamp-2">
+        <h3 className="font-medium text-sm text-primary leading-snug mt-0.5 group-hover:underline line-clamp-2">
           {product.name}
         </h3>
       </div>

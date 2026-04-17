@@ -25,13 +25,13 @@ export default function SearchDropdown({
     <div className="absolute top-full left-0 right-0 bg-white border border-t-0 border-border shadow-lg z-50 max-h-[480px] overflow-y-auto">
       {searching && (
         <div className="px-6 py-4 text-sm text-muted-foreground">
-          Searching...
+          Mencari...
         </div>
       )}
 
       {!searching && !hasResults && (
         <div className="px-6 py-4 text-sm text-muted-foreground">
-          No results found for "{query}"
+          Tidak ditemukan "{query}"
         </div>
       )}
 
@@ -82,7 +82,7 @@ export default function SearchDropdown({
                       src={product.images[0].url}
                       alt={product.images[0].alt ?? product.name}
                       width={80}
-                      height={64}
+                      height={80}
                       className="w-full h-full object-cover"
                     />
                   ) : (

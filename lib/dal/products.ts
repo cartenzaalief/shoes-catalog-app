@@ -44,6 +44,7 @@ export async function getNewArrivals(limit = 8) {
     where: { isNewArrival: true, isActive: true },
     include: {
       images: { orderBy: { position: "asc" }, take: 1 },
+      subcategory: { include: { category: true } },
     },
     orderBy: { newArrivalOrder: "asc" },
     take: limit,
