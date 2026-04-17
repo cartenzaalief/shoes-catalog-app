@@ -10,10 +10,13 @@ import {
   SheetContent,
   SheetTrigger,
   SheetClose,
+  SheetHeader,
+  SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import SearchBar from "./SearchBar";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 type MobileNavProps = {
   categories: Category[];
@@ -26,7 +29,7 @@ export default function MobileNav({ categories }: MobileNavProps) {
   );
 
   return (
-    <div className="md:hidden flex items-center gap-1 ml-auto">
+    <div className="md:hidden flex justify-end items-center gap-1 ml-auto">
       {/* Mobile search */}
       <Sheet>
         <SheetTrigger asChild>
@@ -34,7 +37,12 @@ export default function MobileNav({ categories }: MobileNavProps) {
             <Search className="h-5 w-5" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="top" className="p-4 pt-6">
+        <SheetContent side="top" showCloseButton={false} className="p-4 pt-6">
+          <VisuallyHidden>
+            <SheetHeader>
+              <SheetTitle></SheetTitle>
+            </SheetHeader>
+          </VisuallyHidden>
           <SearchBar className="w-full" />
         </SheetContent>
       </Sheet>
@@ -46,11 +54,16 @@ export default function MobileNav({ categories }: MobileNavProps) {
             <Menu className="h-5 w-5" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-72 p-0">
+        <SheetContent side="left" showCloseButton={false} className="w-72 p-0">
+          <VisuallyHidden>
+            <SheetHeader>
+              <SheetTitle></SheetTitle>
+            </SheetHeader>
+          </VisuallyHidden>
           <div className="flex items-center justify-between px-4 py-4 border-b">
             <Link href="/" onClick={() => setMobileSheetOpen(false)}>
               <Image
-                src="/logo.png"
+                src="/jrj-logo.png"
                 alt="Logo"
                 width={100}
                 height={32}
