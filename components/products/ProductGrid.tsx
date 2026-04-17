@@ -5,7 +5,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
   if (products.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center">
-        <p className="text-lg font-medium">No products found</p>
+        <p className="text-lg font-medium">Produk tidak ditemukan</p>
       </div>
     );
   }

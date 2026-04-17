@@ -71,6 +71,7 @@ export async function getProducts({
     where = {
       ...where,
       subcategoryId: { in: matchingSubcategories.map((s) => s.id) },
+      subcategory: { category: { slug: categorySlug } },
     };
   } else if (categorySlug) {
     where = {
@@ -107,6 +108,24 @@ export async function getProducts({
       category: { select: { slug: true } },
     },
     orderBy: { name: "asc" },
+  });
+
+  console.log({
+    categorySlug,
+    subcategorySlug,
+    products,
+    totalCount,
+    totalPages: Math.ceil(totalCount / PRODUCTS_PER_PAGE),
+    currentPage: page,
+    filterOptions: {
+      categories,
+      subcategories: subcategories.map((s) => ({
+        id: s.id,
+        name: s.name,
+        slug: s.slug,
+        categorySlug: s.category.slug,
+      })),
+    },
   });
 
   return {

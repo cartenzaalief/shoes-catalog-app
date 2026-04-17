@@ -68,7 +68,7 @@ export default function FilterSidebar({
 
       {/* Sort */}
       <div>
-        <h3 className="font-semibold mb-3 text-sm uppercase tracking-wide">
+        <h3 className="font-bold mb-3 text-sm uppercase tracking-wide text-primary">
           Urutkan
         </h3>
         <Select value={activeSort} onValueChange={handleSortChange}>
@@ -84,7 +84,7 @@ export default function FilterSidebar({
 
       {/* Categories */}
       <div>
-        <h3 className="font-semibold mb-3 text-sm uppercase tracking-wide">
+        <h3 className="font-bold mb-3 text-sm uppercase tracking-wide text-primary">
           Tipe
         </h3>
         <ul className="space-y-1">
@@ -111,7 +111,7 @@ export default function FilterSidebar({
         activeCategorySlug !== "all-products" &&
         filterOptions.subcategories.length > 0 && (
           <div>
-            <h3 className="font-semibold mb-3 text-sm uppercase tracking-wide">
+            <h3 className="font-bold mb-3 text-sm uppercase tracking-wide text-primary">
               Kategori
             </h3>
             <ul className="space-y-1">

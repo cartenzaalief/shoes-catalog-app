@@ -29,13 +29,10 @@ export default function Footer() {
 
             <ul className="space-y-3 text-sm text-gray-600">
               <li>
-                <Link href="/products/men">Kids</Link>
+                <Link href="/pria">Pria</Link>
               </li>
               <li>
-                <Link href="/products/women">Men's</Link>
-              </li>
-              <li>
-                <Link href="/products/accessories">Women's</Link>
+                <Link href="/wanita">Wanita</Link>
               </li>
             </ul>
           </div>

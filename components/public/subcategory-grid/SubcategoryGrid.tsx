@@ -9,7 +9,7 @@ export default function SubcategoryGrid({
   return (
     <section className="max-w-480 mx-auto px-4 md:px-16 pt-14">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl md:text-3xl font-semibold">
+        <h2 className="text-2xl md:text-3xl font-bold text-primary">
           Berdasarkan Kategori
         </h2>
       </div>

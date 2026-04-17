@@ -12,7 +12,7 @@ export default function SubcategoryCard({
       href={`/${subcategory.category?.slug}/${subcategory.slug}`}
       className="group relative block overflow-hidden transform transition duration-300"
     >
-      <div className="relative aspect-video w-full">
+      <div className="relative aspect-21/15 w-full">
         <Image
           src={subcategory.imageUrl ?? "/placeholder.jpg"}
           alt={subcategory.name}

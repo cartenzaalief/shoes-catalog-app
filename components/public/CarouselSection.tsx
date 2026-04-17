@@ -12,6 +12,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { CarouselSlide } from "@/types";
+import { Button } from "../ui/button";
 
 type CarouselSectionProps = {
   slides: CarouselSlide[];
@@ -51,8 +52,8 @@ export default function CarouselSection({ slides }: CarouselSectionProps) {
       >
         <CarouselContent>
           {slides.map((slide, index) => (
-            <CarouselItem key={slide.id}>
-              <div className="relative w-full aspect-square md:aspect-21/9 overflow-hidden">
+            <CarouselItem key={slide.id} className="pl-0">
+              <div className="relative w-full aspect-square md:aspect-16/9 overflow-hidden">
                 <picture>
                   {slide.mobileImageUrl && (
                     <source
@@ -67,7 +68,7 @@ export default function CarouselSection({ slides }: CarouselSectionProps) {
                     fill
                     sizes="100vw"
                     priority
-                    className="object-cover"
+                    className="object-contain"
                   />
                 </picture>
 
@@ -86,12 +87,9 @@ export default function CarouselSection({ slides }: CarouselSectionProps) {
                     )}
 
                     {slide.buttonText && (
-                      <a
-                        href={slide.buttonLink ?? "#"}
-                        className="mt-6 inline-block bg-white text-black font-semibold px-6 py-3 rounded-full hover:bg-gray-200 transition"
-                      >
+                      <Button size="lg" className="mt-6 rounded-none">
                         {slide.buttonText}
-                      </a>
+                      </Button>
                     )}
                   </div>
                 )}
