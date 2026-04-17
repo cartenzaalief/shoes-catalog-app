@@ -23,7 +23,6 @@ export default async function ProductListPage({
     page,
   };
   const data = await getProducts(filters);
-  console.log(data);
 
   return (
     <main>
