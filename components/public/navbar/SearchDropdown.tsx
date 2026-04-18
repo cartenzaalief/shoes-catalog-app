@@ -31,7 +31,7 @@ export default function SearchDropdown({
 
       {!searching && !hasResults && (
         <div className="px-6 py-4 text-sm text-muted-foreground">
-          Tidak ditemukan "{query}"
+          Tidak ditemukan &quot;{query}&quot;
         </div>
       )}
 

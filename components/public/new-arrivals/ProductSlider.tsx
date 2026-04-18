@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import WheelGesturesPlugin from "embla-carousel-wheel-gestures";
 import {
   Carousel,
@@ -16,7 +16,6 @@ import { Product } from "@/types";
 
 export default function ProductSlider({ products }: { products: Product[] }) {
   const [api, setApi] = useState<CarouselApi>();
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const scrollNextGroup = () => {
     if (!api) return;
@@ -43,24 +42,6 @@ export default function ProductSlider({ products }: { products: Product[] }) {
       api.scrollTo(currentIndex - 1);
     }
   };
-
-  useEffect(() => {
-    if (!api) return;
-
-    const updateSelectedIndex = () => {
-      setSelectedIndex(api.selectedScrollSnap());
-    };
-
-    updateSelectedIndex();
-
-    api.on("select", updateSelectedIndex);
-    api.on("reInit", updateSelectedIndex);
-
-    return () => {
-      api.off("select", updateSelectedIndex);
-      api.off("reInit", updateSelectedIndex);
-    };
-  }, [api]);
 
   return (
     <div className="w-full">

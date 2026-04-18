@@ -56,7 +56,7 @@ export default function CarouselSection({ slides }: CarouselSectionProps) {
         onPointerUp={() => autoplay.current.play()}
       >
         <CarouselContent>
-          {slides.map((slide, index) => (
+          {slides.map((slide) => (
             <CarouselItem key={slide.id} className="pl-0">
               <div className="relative w-full aspect-square md:aspect-21/9 overflow-hidden">
                 <picture>

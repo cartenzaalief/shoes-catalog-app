@@ -1,5 +1,6 @@
 import { Product } from "@/types";
 import ProductSlider from "./ProductSlider";
+import Link from "next/link";
 
 export default function NewArrivals({ products }: { products: Product[] }) {
   return (
@@ -9,12 +10,12 @@ export default function NewArrivals({ products }: { products: Product[] }) {
           NEW PROJECT
         </h2>
 
-        <a
+        <Link
           href="/all-products"
           className="text-sm font-medium text-primary hover:underline"
         >
           Lihat Semua
-        </a>
+        </Link>
       </div>
 
       <ProductSlider products={products} />

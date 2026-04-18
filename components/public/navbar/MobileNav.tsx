@@ -82,7 +82,7 @@ export default function MobileNav({ categories, extraMenu }: MobileNavProps) {
           </div>
 
           <div className="overflow-y-auto">
-            {categories.map((cat, idx) => (
+            {categories.map((cat) => (
               <div key={cat.id} className="border-b">
                 <div className="flex items-center justify-between px-4 py-3">
                   <Link
