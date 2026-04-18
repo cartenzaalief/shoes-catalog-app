@@ -62,7 +62,6 @@ export default async function ProductListPage({
             activeCategorySlug={categorySlug}
             activeSubcategorySlug={subcategorySlug}
             activeSort={sort}
-            activeSearch={search} // 👈 pass search down
           />
 
           <div className="flex-1 min-w-0">
