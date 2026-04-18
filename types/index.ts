@@ -42,6 +42,17 @@ export type Category = {
   subcategories?: Subcategory[];
 };
 
+export type ContentPosition =
+  | "TOP_LEFT"
+  | "TOP_CENTER"
+  | "TOP_RIGHT"
+  | "CENTER_LEFT"
+  | "CENTER"
+  | "CENTER_RIGHT"
+  | "BOTTOM_LEFT"
+  | "BOTTOM_CENTER"
+  | "BOTTOM_RIGHT";
+
 export type CarouselSlide = {
   id: number;
   title: string | null;
@@ -50,8 +61,11 @@ export type CarouselSlide = {
   mobileImageUrl: string | null;
   buttonText: string | null;
   buttonLink: string | null;
+  contentPosition: ContentPosition;
   displayOrder: number;
   isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type Partner = {

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import WheelGesturesPlugin from "embla-carousel-wheel-gestures";
+import Link from "next/link";
 
 import {
   Carousel,
@@ -11,8 +12,34 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { CarouselSlide } from "@/types";
+import { CarouselSlide, ContentPosition } from "@/types";
 import { Button } from "../ui/button";
+
+// Map position enum → Tailwind classes
+const positionClasses: Record<ContentPosition, string> = {
+  TOP_LEFT: "flex-col justify-start items-start   text-left",
+  TOP_CENTER: "flex-col justify-start items-center  text-center",
+  TOP_RIGHT: "flex-col justify-start items-end     text-right",
+  CENTER_LEFT: "flex-col justify-center items-start  text-left",
+  CENTER: "flex-col justify-center items-center text-center",
+  CENTER_RIGHT: "flex-col justify-center items-end    text-right",
+  BOTTOM_LEFT: "flex-col justify-end items-start     text-left",
+  BOTTOM_CENTER: "flex-col justify-end items-center    text-center",
+  BOTTOM_RIGHT: "flex-col justify-end items-end       text-right",
+};
+
+// Padding so content doesn't hug the edges
+const paddingClasses: Record<ContentPosition, string> = {
+  TOP_LEFT: "pt-10 pl-8 md:pt-14 md:pl-14",
+  TOP_CENTER: "pt-10 px-6 md:pt-14",
+  TOP_RIGHT: "pt-10 pr-8 md:pt-14 md:pr-14",
+  CENTER_LEFT: "pl-8 md:pl-14",
+  CENTER: "px-6",
+  CENTER_RIGHT: "pr-8 md:pr-14",
+  BOTTOM_LEFT: "pb-14 pl-8 md:pb-16 md:pl-14",
+  BOTTOM_CENTER: "pb-14 px-6 md:pb-16",
+  BOTTOM_RIGHT: "pb-14 pr-8 md:pb-16 md:pr-14",
+};
 
 type CarouselSectionProps = {
   slides: CarouselSlide[];
@@ -31,9 +58,7 @@ export default function CarouselSection({ slides }: CarouselSectionProps) {
 
   useEffect(() => {
     if (!api) return;
-
     setCurrent(api.selectedScrollSnap());
-
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap());
     });
@@ -44,11 +69,7 @@ export default function CarouselSection({ slides }: CarouselSectionProps) {
       <Carousel
         setApi={setApi}
         plugins={[autoplay.current, WheelGesturesPlugin()]}
-        opts={{
-          align: "start",
-          containScroll: "trimSnaps",
-          loop: true,
-        }}
+        opts={{ align: "start", containScroll: "trimSnaps", loop: true }}
         className="w-full"
         onMouseEnter={() => autoplay.current.stop()}
         onMouseLeave={() => autoplay.current.play()}
@@ -56,54 +77,66 @@ export default function CarouselSection({ slides }: CarouselSectionProps) {
         onPointerUp={() => autoplay.current.play()}
       >
         <CarouselContent>
-          {slides.map((slide) => (
-            <CarouselItem key={slide.id} className="pl-0">
-              <div className="relative w-full aspect-square md:aspect-21/9 overflow-hidden">
-                <picture>
-                  {slide.mobileImageUrl && (
-                    <source
-                      media="(max-width: 768px)"
-                      srcSet={slide.mobileImageUrl ?? slide.desktopImageUrl}
+          {slides.map((slide) => {
+            const position = slide.contentPosition ?? "CENTER";
+            return (
+              <CarouselItem key={slide.id} className="pl-0">
+                <div className="relative w-full aspect-square md:aspect-21/9 overflow-hidden">
+                  <picture>
+                    {slide.mobileImageUrl && (
+                      <source
+                        media="(max-width: 768px)"
+                        srcSet={slide.mobileImageUrl}
+                      />
+                    )}
+                    <Image
+                      src={slide.desktopImageUrl}
+                      alt={slide.title ?? "Carousel image"}
+                      fill
+                      sizes="100vw"
+                      priority
+                      className="object-cover"
                     />
+                  </picture>
+
+                  {(slide.title || slide.subtitle || slide.buttonText) && (
+                    <div
+                      className={`absolute inset-0 flex w-full h-full bg-linear-to-t from-black/70 via-black/30 to-transparent text-white
+    ${positionClasses[position]} ${paddingClasses[position]}`}
+                    >
+                      <div className="max-w-xl">
+                        {slide.title && (
+                          <h2 className="text-2xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
+                            {slide.title}
+                          </h2>
+                        )}
+                        {slide.subtitle && (
+                          <p className="mt-2 md:mt-4 text-sm md:text-xl text-white/90">
+                            {slide.subtitle}
+                          </p>
+                        )}
+                        {slide.buttonText && (
+                          <Button
+                            size="lg"
+                            className="mt-3 md:mt-6 rounded-none h-8 md:h-10 text-xs md:text-sm"
+                            asChild={!!slide.buttonLink}
+                          >
+                            {slide.buttonLink ? (
+                              <Link href={slide.buttonLink}>
+                                {slide.buttonText}
+                              </Link>
+                            ) : (
+                              slide.buttonText
+                            )}
+                          </Button>
+                        )}
+                      </div>
+                    </div>
                   )}
-
-                  <Image
-                    src={slide.desktopImageUrl}
-                    alt={slide.title ?? "Carousel image"}
-                    fill
-                    sizes="100vw"
-                    priority
-                    className="object-cover"
-                  />
-                </picture>
-
-                {(slide.title || slide.subtitle) && (
-                  <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-6 bg-linear-to-t from-black/70 via-black/30 to-transparent">
-                    {slide.title && (
-                      <h2 className="text-2xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
-                        {slide.title}
-                      </h2>
-                    )}
-
-                    {slide.subtitle && (
-                      <p className="md:mt-4 max-w-xl text-sm md:text-xl text-white/90">
-                        {slide.subtitle}
-                      </p>
-                    )}
-
-                    {slide.buttonText && (
-                      <Button
-                        size="lg"
-                        className="mt-3 md:mt-6 rounded-none h-8 md:h-10 text-xs md:text-sm"
-                      >
-                        {slide.buttonText}
-                      </Button>
-                    )}
-                  </div>
-                )}
-              </div>
-            </CarouselItem>
-          ))}
+                </div>
+              </CarouselItem>
+            );
+          })}
         </CarouselContent>
 
         {/* Pagination dots */}

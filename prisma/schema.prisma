@@ -7,11 +7,11 @@ datasource db {
 }
 
 model Category {
-  id           Int           @id @default(autoincrement())
-  name         String        @unique
-  slug         String        @unique
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
+  slug          String        @unique
   subcategories Subcategory[]
-  createdAt    DateTime      @default(now())
+  createdAt     DateTime      @default(now())
 }
 
 model Subcategory {
@@ -29,18 +29,18 @@ model Subcategory {
 }
 
 model Product {
-  id             Int            @id @default(autoincrement())
-  name           String
-  slug           String         @unique
-  description    String?
-  subcategoryId  Int
-  subcategory    Subcategory    @relation(fields: [subcategoryId], references: [id])
-  images         ProductImage[]
-  isNewArrival   Boolean        @default(false)
+  id              Int            @id @default(autoincrement())
+  name            String
+  slug            String         @unique
+  description     String?
+  subcategoryId   Int
+  subcategory     Subcategory    @relation(fields: [subcategoryId], references: [id])
+  images          ProductImage[]
+  isNewArrival    Boolean        @default(false)
   newArrivalOrder Int?
-  isActive       Boolean        @default(true)
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  isActive        Boolean        @default(true)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt          // ✅ already correct
 
   @@index([subcategoryId])
 }
@@ -53,6 +53,7 @@ model ProductImage {
   productId Int
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
+  // no updatedAt needed — images are replaced not edited
 }
 
 model Admin {
@@ -62,21 +63,22 @@ model Admin {
   password  String
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt          // ✅ fixed — removed @default(now())
 }
 
 model CarouselSlide {
-  id              Int      @id @default(autoincrement())
+  id              Int             @id @default(autoincrement())
   title           String?
   subtitle        String?
   desktopImageUrl String
   mobileImageUrl  String?
   buttonText      String?
   buttonLink      String?
-  displayOrder    Int      @default(0)
-  isActive        Boolean  @default(true)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt @default(now())
+  contentPosition ContentPosition @default(CENTER)  // 👈 new field
+  displayOrder    Int             @default(0)
+  isActive        Boolean         @default(true)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt        // ✅ fixed — removed @default(now())
 
   @@index([displayOrder])
 }
@@ -88,6 +90,17 @@ model Partner {
   displayOrder Int      @default(0)
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
+  // no updatedAt — partners are rarely edited, add if needed
+}
 
-  @@index([displayOrder])
+enum ContentPosition {
+  TOP_LEFT
+  TOP_CENTER
+  TOP_RIGHT
+  CENTER_LEFT
+  CENTER
+  CENTER_RIGHT
+  BOTTOM_LEFT
+  BOTTOM_CENTER
+  BOTTOM_RIGHT
 }
