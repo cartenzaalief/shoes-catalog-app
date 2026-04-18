@@ -157,3 +157,9 @@
 .whatsapp-pulse {
   animation: whatsapp-pulse 2s infinite;
 }
+
+/* NProgress bar — customize color to match your brand */
+#nprogress .bar {
+  background: var(--primary) !important; /* change to your brand color */
+  height: 3px !important;
+}

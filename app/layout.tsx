@@ -5,6 +5,7 @@ import Navbar from "@/components/public/navbar/Navbar";
 import { getAllCategoriesWithSubcategories } from "@/lib/dal/categories";
 import Footer from "@/components/public/Footer";
 import WhatsAppFloat from "@/components/public/WhatsappFloat";
+import { NavigationProgress } from "@/components/public/NavigationProgress";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={geist.className}>
+        <NavigationProgress />
         <Navbar categories={categories} />
         <main>{children}</main>
         <Footer />
