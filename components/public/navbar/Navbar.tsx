@@ -26,7 +26,7 @@ export default function Navbar({ categories }: NavbarProps) {
       <div className="max-w-480 mx-auto px-4 md:px-16">
         <div className="flex items-center h-16 gap-6">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
+          <Link href="/" className="shrink-0">
             <Image
               src="/jrj-logo.png"
               alt="Logo"

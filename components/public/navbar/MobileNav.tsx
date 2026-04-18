@@ -57,14 +57,14 @@ export default function MobileNav({ categories, extraMenu }: MobileNavProps) {
         <SheetContent
           side="left"
           showCloseButton={false}
-          className="w-72 p-0 bg-primary gap-0"
+          className="w-72 p-0 gap-0"
         >
           <VisuallyHidden>
             <SheetHeader>
               <SheetTitle></SheetTitle>
             </SheetHeader>
           </VisuallyHidden>
-          <div className="flex items-center justify-between px-4 py-4 border-b bg-primary-foreground">
+          <div className="flex items-center justify-between px-4 py-4 border-b">
             <Link href="/" onClick={() => setMobileSheetOpen(false)}>
               <Image
                 src="/jrj-logo.png"
@@ -87,7 +87,7 @@ export default function MobileNav({ categories, extraMenu }: MobileNavProps) {
                 <div className="flex items-center justify-between px-4 py-3">
                   <Link
                     href={`/${cat.slug}`}
-                    className="text-sm text-primary-foreground font-semibold uppercase tracking-wide"
+                    className="text-sm text-secondary font-semibold uppercase tracking-wide"
                     onClick={() => setMobileSheetOpen(false)}
                   >
                     {cat.name}
@@ -104,7 +104,7 @@ export default function MobileNav({ categories, extraMenu }: MobileNavProps) {
                       }
                     >
                       <ChevronDown
-                        className={`h-4 w-4 transition-transform duration-200 text-primary-foreground ${
+                        className={`h-4 w-4 transition-transform duration-200 ${
                           openMobileCategory === cat.id ? "rotate-180" : ""
                         }`}
                       />
@@ -113,7 +113,7 @@ export default function MobileNav({ categories, extraMenu }: MobileNavProps) {
                 </div>
 
                 {openMobileCategory === cat.id && cat.subcategories && (
-                  <div className="bg-muted/20 pb-2">
+                  <div className="bg-primary pb-2">
                     {cat.subcategories.map((sub) => (
                       <Link
                         key={sub.id}
@@ -133,7 +133,7 @@ export default function MobileNav({ categories, extraMenu }: MobileNavProps) {
                 <div className="px-4 flex items-center justify-between h-full">
                   <Link
                     href={`/${menu.slug}`}
-                    className="text-sm text-primary-foreground font-semibold uppercase tracking-wide"
+                    className="text-sm text-secondary font-semibold uppercase tracking-wide"
                     onClick={() => setMobileSheetOpen(false)}
                   >
                     {menu.name}

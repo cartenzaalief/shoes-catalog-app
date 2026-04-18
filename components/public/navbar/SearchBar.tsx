@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Search, X } from "lucide-react";
-import { SearchResults } from "./types";
+import { SearchResults } from "@/types";
 import SearchDropdown from "./SearchDropdown";
 
 type SearchBarProps = {

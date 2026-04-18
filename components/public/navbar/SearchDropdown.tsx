@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Search } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { SearchResults } from "./types";
+import { SearchResults } from "@/types";
 
 type SearchDropdownProps = {
   query: string;
@@ -22,7 +22,7 @@ export default function SearchDropdown({
   const totalProducts = results.products.length;
 
   return (
-    <div className="absolute top-full left-0 right-0 bg-white border border-t-0 border-border shadow-lg z-50 max-h-[480px] overflow-y-auto">
+    <div className="absolute top-full left-0 right-0 bg-white border border-t-0 border-border shadow-lg z-50 max-h-120 overflow-y-auto">
       {searching && (
         <div className="px-6 py-4 text-sm text-muted-foreground">
           Mencari...
