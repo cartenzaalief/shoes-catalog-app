@@ -22,7 +22,7 @@ export default function MegaMenu({
         cat.subcategories && cat.subcategories.length > 0 ? (
           <div
             key={cat.id}
-            className={`hidden md:block absolute left-0 right-0 bg-background border-t shadow-lg z-40 transition-all duration-150 ${
+            className={`hidden md:block absolute left-0 right-0 bg-primary border-t shadow-lg z-40 transition-all duration-150 ${
               activeMegaMenu === cat.id
                 ? "opacity-100 visible"
                 : "opacity-0 invisible pointer-events-none"
@@ -31,7 +31,7 @@ export default function MegaMenu({
             onMouseLeave={onMouseLeave}
           >
             <div className="max-w-7xl mx-auto px-8 py-8">
-              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">
+              <p className="text-xs font-bold uppercase tracking-widest text-primary-foreground mb-4 underline underline-offset-4">
                 {cat.name}
               </p>
               <div className="grid grid-cols-4 gap-4">
@@ -40,7 +40,7 @@ export default function MegaMenu({
                     key={sub.id}
                     href={`/${cat.slug}/${sub.slug}`}
                     onClick={onClose}
-                    className="text-sm font-medium text-foreground hover:underline underline-offset-4"
+                    className="text-sm font-medium text-primary-foreground hover:underline underline-offset-4"
                   >
                     {sub.name}
                   </Link>

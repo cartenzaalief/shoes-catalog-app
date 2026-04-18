@@ -8,13 +8,13 @@ export default function SubcategoryGrid({
 }) {
   return (
     <section className="max-w-480 mx-auto px-4 md:px-16 pt-14">
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-primary">
-          Berdasarkan Kategori
+      <div className="flex items-center justify-between mb-4 md:mb-8">
+        <h2 className="text-lg md:text-3xl font-bold text-secondary">
+          BERDASARKAN KATEGORI
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
         {subcategories.map((subcategory) => (
           <SubcategoryCard key={subcategory.id} subcategory={subcategory} />
         ))}

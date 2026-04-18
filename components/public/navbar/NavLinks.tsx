@@ -9,6 +9,7 @@ type NavLinksProps = {
   activeMegaMenu: number | null;
   onMouseEnter: (id: number) => void;
   onMouseLeave: () => void;
+  extraMenu: { slug: string; name: string }[];
 };
 
 export default function NavLinks({
@@ -16,6 +17,7 @@ export default function NavLinks({
   activeMegaMenu,
   onMouseEnter,
   onMouseLeave,
+  extraMenu,
 }: NavLinksProps) {
   return (
     <div className="hidden md:flex items-center flex-1">
@@ -38,6 +40,16 @@ export default function NavLinks({
             {cat.subcategories && cat.subcategories.length > 0 && (
               <ChevronDown className="w-3 h-3" />
             )}
+          </Link>
+        </div>
+      ))}
+      {extraMenu.map((menu) => (
+        <div key={menu.slug} className="relative">
+          <Link
+            href={`/${menu.slug}`}
+            className={`flex items-center gap-1 px-3 py-5 text-sm font-semibold uppercase tracking-wide transition-colors border-b-2 border-transparent hover:border-primary text-secondary hover:text-primary`}
+          >
+            {menu.name}
           </Link>
         </div>
       ))}

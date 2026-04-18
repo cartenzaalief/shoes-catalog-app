@@ -44,6 +44,11 @@ export default function CarouselSection({ slides }: CarouselSectionProps) {
       <Carousel
         setApi={setApi}
         plugins={[autoplay.current, WheelGesturesPlugin()]}
+        opts={{
+          align: "start",
+          containScroll: "trimSnaps",
+          loop: true,
+        }}
         className="w-full"
         onMouseEnter={() => autoplay.current.stop()}
         onMouseLeave={() => autoplay.current.play()}
@@ -53,7 +58,7 @@ export default function CarouselSection({ slides }: CarouselSectionProps) {
         <CarouselContent>
           {slides.map((slide, index) => (
             <CarouselItem key={slide.id} className="pl-0">
-              <div className="relative w-full aspect-square md:aspect-16/9 overflow-hidden">
+              <div className="relative w-full aspect-square md:aspect-21/9 overflow-hidden">
                 <picture>
                   {slide.mobileImageUrl && (
                     <source
@@ -68,26 +73,29 @@ export default function CarouselSection({ slides }: CarouselSectionProps) {
                     fill
                     sizes="100vw"
                     priority
-                    className="object-contain"
+                    className="object-cover"
                   />
                 </picture>
 
                 {(slide.title || slide.subtitle) && (
                   <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-6 bg-linear-to-t from-black/70 via-black/30 to-transparent">
                     {slide.title && (
-                      <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4">
+                      <h2 className="text-2xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
                         {slide.title}
                       </h2>
                     )}
 
                     {slide.subtitle && (
-                      <p className="max-w-xl text-lg md:text-xl text-white/90">
+                      <p className="md:mt-4 max-w-xl text-sm md:text-xl text-white/90">
                         {slide.subtitle}
                       </p>
                     )}
 
                     {slide.buttonText && (
-                      <Button size="lg" className="mt-6 rounded-none">
+                      <Button
+                        size="lg"
+                        className="mt-3 md:mt-6 rounded-none h-8 md:h-10 text-xs md:text-sm"
+                      >
                         {slide.buttonText}
                       </Button>
                     )}
@@ -106,8 +114,8 @@ export default function CarouselSection({ slides }: CarouselSectionProps) {
               onClick={() => api?.scrollTo(index)}
               className={`h-2.5 rounded-full transition-all duration-300 ${
                 current === index
-                  ? "bg-white w-8"
-                  : "bg-white/40 w-2.5 hover:bg-white"
+                  ? "bg-primary w-8"
+                  : "bg-primary/40 w-2.5 hover:bg-primary"
               }`}
             />
           ))}

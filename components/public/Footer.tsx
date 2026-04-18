@@ -23,9 +23,9 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Shop */}
+          {/* Model */}
           <div>
-            <h3 className="font-semibold mb-4">Shop</h3>
+            <h3 className="font-semibold text-secondary mb-4">Model</h3>
 
             <ul className="space-y-3 text-sm text-gray-600">
               <li>
@@ -39,24 +39,24 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="font-semibold mb-4">Company</h3>
+            <h3 className="font-semibold text-secondary mb-4">Perusahaan</h3>
 
             <ul className="space-y-3 text-sm text-gray-600">
               <li>
-                <Link href="/about">About Us</Link>
+                <Link href="/gallery">Galeri Produksi</Link>
               </li>
               <li>
-                <Link href="/contact">Contact</Link>
+                <Link href="/about">Tentang Kami</Link>
               </li>
               <li>
-                <Link href="/partners">Partners</Link>
+                <Link href="/partners">Mitra</Link>
               </li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold mb-4">Contact</h3>
+            <h3 className="font-semibold text-secondary mb-4">Kontak</h3>
 
             <ul className="space-y-3 text-sm text-gray-600">
               <li className="flex items-center gap-2">

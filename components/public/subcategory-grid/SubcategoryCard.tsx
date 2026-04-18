@@ -24,11 +24,13 @@ export default function SubcategoryCard({
         <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
 
         {/* text */}
-        <div className="absolute bottom-6 left-6 text-white">
-          <h6 className="text-sm">{subcategory.category?.name}</h6>
-          <h3 className="text-2xl font-semibold">{subcategory.name}</h3>
+        <div className="absolute bottom-2 md:bottom-6 left-2 md:left-6 text-white">
+          <h6 className="text-xs md:text-sm">{subcategory.category?.name}</h6>
+          <h3 className="text-md md:text-2xl font-semibold">
+            {subcategory.name}
+          </h3>
 
-          <span className="text-sm opacity-90 mt-1 block">
+          <span className="hidden md:block text-sm opacity-90 mt-1">
             Lihat Sekarang →
           </span>
         </div>

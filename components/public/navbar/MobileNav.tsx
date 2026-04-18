@@ -14,15 +14,15 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import SearchBar from "./SearchBar";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 type MobileNavProps = {
   categories: Category[];
+  extraMenu: { slug: string; name: string }[];
 };
 
-export default function MobileNav({ categories }: MobileNavProps) {
+export default function MobileNav({ categories, extraMenu }: MobileNavProps) {
   const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
   const [openMobileCategory, setOpenMobileCategory] = useState<number | null>(
     null,
@@ -54,13 +54,17 @@ export default function MobileNav({ categories }: MobileNavProps) {
             <Menu className="h-5 w-5" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" showCloseButton={false} className="w-72 p-0">
+        <SheetContent
+          side="left"
+          showCloseButton={false}
+          className="w-72 p-0 bg-primary gap-0"
+        >
           <VisuallyHidden>
             <SheetHeader>
               <SheetTitle></SheetTitle>
             </SheetHeader>
           </VisuallyHidden>
-          <div className="flex items-center justify-between px-4 py-4 border-b">
+          <div className="flex items-center justify-between px-4 py-4 border-b bg-primary-foreground">
             <Link href="/" onClick={() => setMobileSheetOpen(false)}>
               <Image
                 src="/jrj-logo.png"
@@ -79,11 +83,11 @@ export default function MobileNav({ categories }: MobileNavProps) {
 
           <div className="overflow-y-auto">
             {categories.map((cat, idx) => (
-              <div key={cat.id}>
+              <div key={cat.id} className="border-b">
                 <div className="flex items-center justify-between px-4 py-3">
                   <Link
                     href={`/${cat.slug}`}
-                    className="text-sm font-semibold uppercase tracking-wide"
+                    className="text-sm text-primary-foreground font-semibold uppercase tracking-wide"
                     onClick={() => setMobileSheetOpen(false)}
                   >
                     {cat.name}
@@ -100,7 +104,7 @@ export default function MobileNav({ categories }: MobileNavProps) {
                       }
                     >
                       <ChevronDown
-                        className={`h-4 w-4 transition-transform duration-200 ${
+                        className={`h-4 w-4 transition-transform duration-200 text-primary-foreground ${
                           openMobileCategory === cat.id ? "rotate-180" : ""
                         }`}
                       />
@@ -109,12 +113,12 @@ export default function MobileNav({ categories }: MobileNavProps) {
                 </div>
 
                 {openMobileCategory === cat.id && cat.subcategories && (
-                  <div className="bg-muted/40 pb-2">
+                  <div className="bg-muted/20 pb-2">
                     {cat.subcategories.map((sub) => (
                       <Link
                         key={sub.id}
                         href={`/${cat.slug}/${sub.slug}`}
-                        className="block px-8 py-2 text-sm text-muted-foreground hover:text-foreground"
+                        className="block px-8 py-2 text-sm text-primary-foreground"
                         onClick={() => setMobileSheetOpen(false)}
                       >
                         {sub.name}
@@ -122,8 +126,19 @@ export default function MobileNav({ categories }: MobileNavProps) {
                     ))}
                   </div>
                 )}
-
-                {idx < categories.length - 1 && <Separator />}
+              </div>
+            ))}
+            {extraMenu.map((menu) => (
+              <div key={menu.slug} className="border-b h-13">
+                <div className="px-4 flex items-center justify-between h-full">
+                  <Link
+                    href={`/${menu.slug}`}
+                    className="text-sm text-primary-foreground font-semibold uppercase tracking-wide"
+                    onClick={() => setMobileSheetOpen(false)}
+                  >
+                    {menu.name}
+                  </Link>
+                </div>
               </div>
             ))}
           </div>

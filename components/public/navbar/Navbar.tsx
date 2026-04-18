@@ -13,6 +13,11 @@ type NavbarProps = {
   categories: Category[];
 };
 
+const extraMenu = [
+  { id: "gallery", slug: "gallery", name: "Galeri Produksi" },
+  { id: "about", slug: "about", name: "Tentang Kami" },
+];
+
 export default function Navbar({ categories }: NavbarProps) {
   const [activeMegaMenu, setActiveMegaMenu] = useState<number | null>(null);
 
@@ -38,13 +43,14 @@ export default function Navbar({ categories }: NavbarProps) {
             activeMegaMenu={activeMegaMenu}
             onMouseEnter={(id) => setActiveMegaMenu(id)}
             onMouseLeave={() => setActiveMegaMenu(null)}
+            extraMenu={extraMenu}
           />
 
           {/* Desktop search */}
           <SearchBar className="hidden md:block w-64" />
 
           {/* Mobile nav */}
-          <MobileNav categories={categories} />
+          <MobileNav categories={categories} extraMenu={extraMenu} />
         </div>
       </div>
 

@@ -16,31 +16,50 @@ import { Product } from "@/types";
 
 export default function ProductSlider({ products }: { products: Product[] }) {
   const [api, setApi] = useState<CarouselApi>();
-  const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const scrollNextGroup = () => {
     if (!api) return;
-    api.scrollTo(api.selectedScrollSnap() + 1);
+
+    const currentIndex = api.selectedScrollSnap();
+    const lastIndex = api.scrollSnapList().length - 1;
+
+    if (currentIndex >= lastIndex) {
+      api.scrollTo(0);
+    } else {
+      api.scrollTo(currentIndex + 1);
+    }
   };
 
   const scrollPrevGroup = () => {
     if (!api) return;
-    api.scrollTo(api.selectedScrollSnap() - 1);
+
+    const currentIndex = api.selectedScrollSnap();
+    const lastIndex = api.scrollSnapList().length - 1;
+
+    if (currentIndex <= 0) {
+      api.scrollTo(lastIndex);
+    } else {
+      api.scrollTo(currentIndex - 1);
+    }
   };
 
   useEffect(() => {
     if (!api) return;
 
-    const updateScrollState = () => {
-      setCanPrev(api.canScrollPrev());
-      setCanNext(api.canScrollNext());
+    const updateSelectedIndex = () => {
+      setSelectedIndex(api.selectedScrollSnap());
     };
 
-    updateScrollState();
+    updateSelectedIndex();
 
-    api.on("select", updateScrollState);
-    api.on("reInit", updateScrollState);
+    api.on("select", updateSelectedIndex);
+    api.on("reInit", updateSelectedIndex);
+
+    return () => {
+      api.off("select", updateSelectedIndex);
+      api.off("reInit", updateSelectedIndex);
+    };
   }, [api]);
 
   return (
@@ -49,9 +68,8 @@ export default function ProductSlider({ products }: { products: Product[] }) {
         <Button
           variant="outline"
           size="icon"
-          hidden={!canPrev}
           onClick={scrollPrevGroup}
-          className="absolute hidden md:flex left-4 top-2/5 z-20 h-10 w-10 rounded-none"
+          className="absolute left-4 top-2/5 z-20 hidden h-10 w-10 rounded-none md:flex"
         >
           <ChevronLeft className="h-5 w-5" />
         </Button>
@@ -59,9 +77,8 @@ export default function ProductSlider({ products }: { products: Product[] }) {
         <Button
           variant="outline"
           size="icon"
-          hidden={!canNext}
           onClick={scrollNextGroup}
-          className="absolute hidden md:flex right-4 top-2/5 z-20 h-10 w-10 rounded-none"
+          className="absolute right-4 top-2/5 z-20 hidden h-10 w-10 rounded-none md:flex"
         >
           <ChevronRight className="h-5 w-5" />
         </Button>
@@ -72,6 +89,8 @@ export default function ProductSlider({ products }: { products: Product[] }) {
           opts={{
             align: "start",
             containScroll: "trimSnaps",
+            loop: true,
+            dragFree: true,
           }}
           className="w-full select-none"
         >
