@@ -28,6 +28,7 @@ type Props = {
   activeCategorySlug?: string;
   activeSubcategorySlug?: string;
   activeSort: "newest" | "oldest";
+  activeSearch?: string;
 };
 
 export default function FilterSidebar({
@@ -35,6 +36,7 @@ export default function FilterSidebar({
   activeCategorySlug,
   activeSubcategorySlug,
   activeSort,
+  activeSearch,
 }: Props) {
   const router = useRouter();
   const pathname = usePathname();

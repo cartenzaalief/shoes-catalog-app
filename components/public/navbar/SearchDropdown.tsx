@@ -108,7 +108,7 @@ export default function SearchDropdown({
         <>
           <Separator />
           <Link
-            href={`/search?q=${encodeURIComponent(query)}`}
+            href={`/all-products?search=${encodeURIComponent(query.trim())}`}
             onClick={onNavigate}
             className="flex items-center justify-center gap-2 py-4 text-sm font-medium hover:bg-muted/40 transition-colors w-full"
           >

@@ -27,17 +27,8 @@ type GetProductsParams = {
   subcategorySlug?: string;
   sort?: "newest" | "oldest";
   page?: number;
+  search?: string;
 };
-
-export async function getProductBySlug(slug: string) {
-  return prisma.product.findUnique({
-    where: { slug, isActive: true },
-    include: {
-      images: { orderBy: { position: "asc" } },
-      subcategory: { include: { category: true } },
-    },
-  });
-}
 
 export async function getNewArrivals(limit = 8) {
   return prisma.product.findMany({
@@ -56,6 +47,7 @@ export async function getProducts({
   subcategorySlug,
   sort = "newest",
   page = 1,
+  search,
 }: GetProductsParams): Promise<ProductListResult> {
   const skip = (page - 1) * PRODUCTS_PER_PAGE;
   const orderBy: Prisma.ProductOrderByWithRelationInput =
@@ -63,12 +55,16 @@ export async function getProducts({
 
   let where: Prisma.ProductWhereInput = { isActive: true };
 
-  if (subcategorySlug) {
+  if (search) {
+    where = {
+      ...where,
+      name: { contains: search, mode: "insensitive" },
+    };
+  } else if (subcategorySlug) {
     const matchingSubcategories = await prisma.subcategory.findMany({
       where: { slug: subcategorySlug },
       select: { id: true },
     });
-
     where = {
       ...where,
       subcategoryId: { in: matchingSubcategories.map((s) => s.id) },
@@ -126,4 +122,34 @@ export async function getProducts({
       })),
     },
   };
+}
+
+export async function getProductBySlugWithDetails(slug: string) {
+  return prisma.product.findUnique({
+    where: { slug, isActive: true },
+    include: {
+      images: { orderBy: { position: "asc" } },
+      subcategory: { include: { category: true } },
+    },
+  });
+}
+
+export async function getSimilarProducts(
+  subcategoryId: number,
+  excludeProductId: number,
+  limit = 8,
+) {
+  return prisma.product.findMany({
+    where: {
+      subcategoryId,
+      isActive: true,
+      id: { not: excludeProductId },
+    },
+    include: {
+      images: { orderBy: { position: "asc" }, take: 1 },
+      subcategory: { include: { category: true } },
+    },
+    take: limit,
+    orderBy: { createdAt: "desc" },
+  });
 }

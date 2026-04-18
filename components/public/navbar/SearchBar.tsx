@@ -4,12 +4,14 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { Search, X } from "lucide-react";
 import { SearchResults } from "@/types";
 import SearchDropdown from "./SearchDropdown";
+import { useRouter } from "next/navigation";
 
 type SearchBarProps = {
   className?: string;
 };
 
 export default function SearchBar({ className = "" }: SearchBarProps) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResults>({
     subcategories: [],
@@ -56,6 +58,13 @@ export default function SearchBar({ className = "" }: SearchBarProps) {
     }, 300);
   }, []);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && query.trim().length >= 2) {
+      setOpen(false);
+      router.push(`/all-products?search=${encodeURIComponent(query.trim())}`);
+    }
+  };
+
   const handleNavigate = () => {
     setOpen(false);
     setQuery("");
@@ -75,6 +84,7 @@ export default function SearchBar({ className = "" }: SearchBarProps) {
           type="text"
           value={query}
           onChange={(e) => handleSearch(e.target.value)}
+          onKeyDown={handleKeyDown}
           onFocus={() => query.length >= 2 && setOpen(true)}
           placeholder="Mencari"
           className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground text-foreground"
