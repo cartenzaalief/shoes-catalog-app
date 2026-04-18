@@ -111,24 +111,6 @@ export async function getProducts({
     orderBy: { name: "asc" },
   });
 
-  console.log({
-    categorySlug,
-    subcategorySlug,
-    products,
-    totalCount,
-    totalPages: Math.ceil(totalCount / PRODUCTS_PER_PAGE),
-    currentPage: page,
-    filterOptions: {
-      categories,
-      subcategories: subcategories.map((s) => ({
-        id: s.id,
-        name: s.name,
-        slug: s.slug,
-        categorySlug: s.category.slug,
-      })),
-    },
-  });
-
   return {
     products,
     totalCount,
